@@ -1,9 +1,9 @@
 from tifffile import imread, imwrite
 import os
+from pathlib import Path
 
-from auxiliary.turbopath import turbopath
 
-
+# Why not use imread directly?
 def read_tiff(tiff_path: str):
     data = imread(tiff_path)
     return data
@@ -15,11 +15,11 @@ def write_tiff(
     create_parent_directory: bool = False,
     transpose: bool = False,
 ):
-    if transpose == True:
+    if transpose:
         numpy_array = numpy_array.T
 
-    if create_parent_directory == True:
-        output_tiff_path = turbopath(output_tiff_path)
-        parent_dir = output_tiff_path.parent
-        os.makedirs(parent_dir, exist_ok=True)
-    imwrite(output_tiff_path, numpy_array)
+    output_path = Path(output_tiff_path).resolve()
+    if create_parent_directory:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+    imwrite(output_path, numpy_array)
