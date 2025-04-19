@@ -6,6 +6,20 @@
 
 TODO
 
+## Installation
+
+### PyPi
+
+```sh
+pip install auxiliary
+```
+
+### Conda
+
+```sh
+conda install conda-forge::auxiliary
+```
+
 ## deploy
 
 ### build
