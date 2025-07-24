@@ -23,10 +23,13 @@ path = ">=17.0.0"
 pillow = ">=10.0.0"
 simpleitk = ">=2.2.1"
 loguru = "^0.7.3"
-dcm2niix = "^1.0.20250506"
 
 [tool.poetry.dev-dependencies]
 pytest = ">=6.2"
+
+[project.optional-dependencies]
+dcm2nii=[dcm2niix = "^1.0.20250506"]
+all=["auxiliary[dcm2nii]"]
 
 [tool.poetry.group.docs]
 optional = true
