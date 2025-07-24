@@ -28,7 +28,7 @@ loguru = "^0.7.3"
 pytest = ">=6.2"
 
 [tool.poetry.extras]
-dcm2nii = ["dcm2niix>=1.0.20250506"]
+dcm2niix = ["dcm2niix>=1.0.20250506"]
 
 [tool.poetry.group.docs]
 optional = true
