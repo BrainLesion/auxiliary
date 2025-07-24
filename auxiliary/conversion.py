@@ -56,7 +56,9 @@ def dcm2niix(
         subprocess.run(cmd, check=True)
     except subprocess.CalledProcessError as e:
         logger.error(f"Failed to convert DICOM to NIfTI using dcm2niix: {e}")
-        dicom_to_nifti_itk(input_dir, output_dir, file_name)
+        raise RuntimeError(
+            f"Failed to convert DICOM to NIfTI using dcm2niix: {e}; please try `dicom_to_nifti_itk`"
+        ) from e
 
 
 def dicom_to_nifti_itk(
