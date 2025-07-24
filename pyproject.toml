@@ -27,8 +27,12 @@ loguru = "^0.7.3"
 [tool.poetry.dev-dependencies]
 pytest = ">=6.2"
 
+[tool.poetry.dependencies]
+python = "^3.9"
+dcm2niix = { version = ">=1.0.20250506", optional = true }
+
 [tool.poetry.extras]
-dcm2niix = ["dcm2niix>=1.0.20250506"]
+dcm2niix = ["dcm2niix"]
 
 [tool.poetry.group.docs]
 optional = true
