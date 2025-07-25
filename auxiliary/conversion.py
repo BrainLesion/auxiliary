@@ -57,7 +57,7 @@ def dcm2niix(
     except subprocess.CalledProcessError as e:
         logger.error(f"Failed to convert DICOM to NIfTI using dcm2niix: {e}")
         raise RuntimeError(
-            f"Failed to convert DICOM to NIfTI using dcm2niix: {e}"
+            f"Failed to convert DICOM to NIfTI using dcm2niix: {e}; please try `dicom_to_nifti_itk`"
         ) from e
 
 
@@ -95,29 +95,35 @@ def dicom_to_nifti_itk(
         logger.warning(f"More than 1 DICOM series was found in the folder: {input_dir}")
 
     for series_id in series_IDs:
-        series_file_names = sitk.ImageSeriesReader.GetGDCMSeriesFileNames(
-            input_dir, series_id
-        )
-        series_reader = sitk.ImageSeriesReader()
-        series_reader.SetFileNames(series_file_names)
-        series_reader.MetaDataDictionaryArrayUpdateOn()
-        series_reader.LoadPrivateTagsOn()
-        image_dicom = series_reader.Execute()
+        try:
+            series_file_names = sitk.ImageSeriesReader.GetGDCMSeriesFileNames(
+                input_dir, series_id
+            )
+            series_reader = sitk.ImageSeriesReader()
+            series_reader.SetFileNames(series_file_names)
+            series_reader.MetaDataDictionaryArrayUpdateOn()
+            series_reader.LoadPrivateTagsOn()
+            image_dicom = series_reader.Execute()
 
-        output_path = output_dir / f"{series_id}.nii.gz"
+            output_path = output_dir / f"{series_id}.nii.gz"
 
-        if file_name:
-            if len(series_IDs) > 1:
-                logger.warning(
-                    f"More than 1 DICOM series was found in the folder: {input_dir}. Ignoring the provided file name ({file_name}) and using the series ID ({series_id}) instead."
-                )
-            else:
-                output_path = output_dir / file_name
+            if file_name:
+                if len(series_IDs) > 1:
+                    logger.warning(
+                        f"More than 1 DICOM series was found in the folder: {input_dir}. Ignoring the provided file name ({file_name}) and using the series ID ({series_id}) instead."
+                    )
+                else:
+                    output_path = output_dir / file_name
 
-        sitk.WriteImage(
-            image_dicom,
-            output_path,
-        )
+            sitk.WriteImage(
+                image_dicom,
+                output_path,
+            )
+        except Exception as e:
+            logger.error(f"Could not convert DICOM series {series_id} to NIfTI: {e}")
+            raise RuntimeError(
+                f"Could not convert DICOM series {series_id} to NIfTI: {e}; please try `dcm2niix`"
+            ) from e
 
 
 def nifti_to_dicom_itk(
