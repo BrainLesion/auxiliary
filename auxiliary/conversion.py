@@ -68,6 +68,7 @@ def dicom_to_nifti_itk(
 ) -> None:
     """
     Convert a DICOM series to NIfTI format using SimpleITK.
+
     Args:
         input_dir (Union[Path, str]): Path to the input DICOM directory.
         output_dir (Union[Path, str]): Path to the output NIfTI directory.
