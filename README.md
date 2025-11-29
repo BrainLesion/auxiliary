@@ -55,6 +55,7 @@ write_image(image_array, "path/to/output.nii.gz", reference_path="path/to/refere
 
 ```python
 from auxiliary.conversion import dicom_to_nifti_itk, nifti_to_dicom_itk, dcm2niix
+import numpy as np
 
 # Read a DICOM series and convert to NIfTI using SimpleITK
 dicom_to_nifti_itk("path/to/dicom_dir", "path/to/output_dir")
@@ -65,9 +66,13 @@ dcm2niix("path/to/dicom_dir", "path/to/output_dir")
 # Write a NIfTI image to DICOM format
 nifti_to_dicom_itk("path/to/image.nii.gz", "path/to/output_dicom_dir")
 
-# Write with reference DICOM for metadata
+# Write a NumPy array to DICOM format
+image_array = np.random.rand(128, 128, 64)  # example 3D array
+nifti_to_dicom_itk(image_array, "path/to/output_dicom_dir")
+
+# Write a NumPy array to DICOM with reference DICOM for metadata
 nifti_to_dicom_itk(
-    "path/to/image.nii.gz",
+    image_array,
     "path/to/output_dicom_dir",
     reference_dicom="path/to/reference_dicom_dir"
 )
