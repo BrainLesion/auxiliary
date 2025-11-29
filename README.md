@@ -36,7 +36,7 @@ pip install auxiliary[dcm2niix]
 
 ## Usage
 
-### Reading and Writing Images
+### NIfTI I/O
 
 ```python
 from auxiliary.io import read_image, write_image
@@ -49,6 +49,40 @@ write_image(image_array, "path/to/output.nii.gz")
 
 # Write with reference image for spatial metadata
 write_image(image_array, "path/to/output.nii.gz", reference_path="path/to/reference.nii.gz")
+```
+
+### DICOM I/O
+
+```python
+from auxiliary.conversion import dicom_to_nifti_itk, nifti_to_dicom_itk, dcm2niix
+
+# Read a DICOM series and convert to NIfTI using SimpleITK
+dicom_to_nifti_itk("path/to/dicom_dir", "path/to/output_dir")
+
+# Read a DICOM series and convert to NIfTI using dcm2niix (requires dcm2niix extra)
+dcm2niix("path/to/dicom_dir", "path/to/output_dir")
+
+# Write a NIfTI image to DICOM format
+nifti_to_dicom_itk("path/to/image.nii.gz", "path/to/output_dicom_dir")
+
+# Write with reference DICOM for metadata
+nifti_to_dicom_itk(
+    "path/to/image.nii.gz",
+    "path/to/output_dicom_dir",
+    reference_dicom="path/to/reference_dicom_dir"
+)
+```
+
+### TIFF I/O
+
+```python
+from auxiliary.tiff.io import read_tiff, write_tiff
+
+# Read a TIFF file
+tiff_data = read_tiff("path/to/image.tiff")
+
+# Write a NumPy array to a TIFF file
+write_tiff(tiff_data, "path/to/output.tiff")
 ```
 
 ### Image Normalization
@@ -64,31 +98,4 @@ normalized_image = normalizer.normalize(image_array)
 # Windowing normalization (e.g., for CT images)
 normalizer = WindowingNormalizer(center=40, width=400)
 windowed_image = normalizer.normalize(image_array)
-```
-
-### DICOM Conversion
-
-```python
-from auxiliary.conversion import dcm2niix, dicom_to_nifti_itk, nifti_to_dicom_itk
-
-# Convert DICOM to NIfTI using dcm2niix (requires dcm2niix extra)
-dcm2niix("path/to/dicom_dir", "path/to/output_dir")
-
-# Convert DICOM to NIfTI using SimpleITK
-dicom_to_nifti_itk("path/to/dicom_dir", "path/to/output_dir")
-
-# Convert NIfTI to DICOM
-nifti_to_dicom_itk("path/to/image.nii.gz", "path/to/output_dicom_dir")
-```
-
-### TIFF I/O
-
-```python
-from auxiliary.tiff.io import read_tiff, write_tiff
-
-# Read a TIFF file
-tiff_data = read_tiff("path/to/image.tiff")
-
-# Write a NumPy array to a TIFF file
-write_tiff(tiff_data, "path/to/output.tiff")
 ```
