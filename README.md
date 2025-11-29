@@ -92,15 +92,3 @@ tiff_data = read_tiff("path/to/image.tiff")
 # Write a NumPy array to a TIFF file
 write_tiff(tiff_data, "path/to/output.tiff")
 ```
-
-## Contributing
-
-We welcome all kinds of contributions from the community!
-
-### Reporting Bugs, Feature Requests and Questions
-
-Please open a new issue [here](https://github.com/BrainLesion/auxiliary/issues).
-
-### Code Contributions
-
-Nice to have you on board! Please have a look at our [CONTRIBUTING.md](CONTRIBUTING.md) file.
