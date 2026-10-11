@@ -2,7 +2,7 @@
 
 [![Python Versions](https://img.shields.io/pypi/pyversions/auxiliary)](https://pypi.org/project/auxiliary/)
 [![Stable Version](https://img.shields.io/pypi/v/auxiliary?label=stable)](https://pypi.org/project/auxiliary/)
-[![Documentation Status](https://readthedocs.org/projects/auxiliary/badge/?version=latest)](http://auxiliary.readthedocs.io/?badge=latest)
+[![Documentation Status](https://app.readthedocs.org/projects/auxiliary/badge/?version=latest)](https://auxiliary.readthedocs.io/en/latest/?badge=latest)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Auxiliary is a Python package providing utility functions for medical image processing. It is part of the [BrainLesion](https://github.com/BrainLesion) project and offers tools for:
