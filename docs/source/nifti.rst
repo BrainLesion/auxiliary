@@ -2,7 +2,7 @@ NIfTI
 ============================================
 
 Use :doc:`io` for current NIfTI and other image I/O. The NIfTI-specific
-helpers below are deprecated compatibility wrappers.
+helpers below are deprecated legacy APIs.
 
 Deprecated NIfTI I/O
 --------------------------------------------
